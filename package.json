@@ -1,0 +1,45 @@
+{
+  "name": "apb",
+  "version": "0.0.1",
+  "private": true,
+  "description": "AMD Package Builder for seajs",
+  "script": {},
+  "bin": {
+    "apb": "./bin/apb.js"
+  },
+  "main": "index.js",
+  "keywords": [
+    "javascript",
+    "seajs",
+    "AMD",
+    "AMDJS",
+    "Package",
+    "builder"
+  ],
+  "author": {
+    "name": "cloudcome",
+    "email": "cloudcome@163.com",
+    "url": "http://ydr.me"
+  },
+  "homepage": "https://github.com/cloudcome/nodejs-apb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudcome/nodejs-apb"
+  },
+  "bugs": {
+    "url": "https://github.com/cloudcome/nodejs-apb/issues"
+  },
+  "licenses": "MIT",
+  "spm": {
+    "main": "index.js",
+    "dependencies": {}
+  },
+  "dependencies": {
+    "clean-css": "^2.2.14",
+    "colors": "^0.6.2",
+    "fs-extra": "^0.11.0",
+    "glob": "^4.0.5",
+    "howdo": "^1.1.1",
+    "uglify-js": "^2.4.15"
+  }
+}
