@@ -1,6 +1,8 @@
 #apb [![NPM version](https://img.shields.io/npm/v/apb.svg?style=flat)](https://npmjs.org/package/apb)
 AMD Package Builder for seajs
 
+![2](http://ydrimg.oss-cn-hangzhou.aliyuncs.com/2014-08-31_155604.png)
+
 
 # install
 ```
@@ -14,10 +16,29 @@ cd your directory
 apb
 ```
 
-# 编码规范
-* 只支持require本地文件，文件后缀不可省略
-* 目前只支持require脚本文件
-* 需要在源目录新建`apb.json`
+
+# FEATURES
+## 模块ID压缩
+  除了入口模块文件会增加Query字符，其他依赖模块都会被压缩，如：
+  
+  `define('path/to/abc/def.js')`  =>
+  `define('1')`
+
+## 路径压缩
+`require('path/to/abc/def.js');` =>
+`require('1')`
+  
+## 依赖压缩
+`define('1', ['path/to/abc/def.js'])`  =>
+`define('1', ['2'])`
+  
+## 简单
+所有模块都在本地，支持JS、CSS文件的require，自动包裹样式文件。
+
+## 配置
+需要在源目录新建`apb.json`
+
+
 
 # apb.json
 **以下路径配置都是参考`apb.json`的。**
@@ -28,6 +49,18 @@ apb
 * `dest` 目标文件夹
 * `sea-config.js` seajs的配置文件路径
 * `copyFiles` 需要原样复制的文件，支持通配符和数组
+
+**示例**
+```js
+{
+    "md5Length": 6,
+    "src": ["app.js", "app2.js"],
+    "dest": "../dest/",
+    "sea-config.js": "./sea-config.js",
+    "copyFiles": ["**/*.html", "./sea.js"]
+}
+```
+
 
 # sea-config.js
 ```js
