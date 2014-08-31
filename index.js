@@ -16,7 +16,7 @@ var cmdArg0 = cmdArgs[0];
 var cmdArg1 = cmdArgs[1];
 var pkg = require('./package.json');
 
-switch (cmdArg0.toLowerCase()) {
+switch ((cmdArg0||'').toLowerCase()) {
     case '-v':
     case 'version':
         log('version', pkg.version, 'success');
