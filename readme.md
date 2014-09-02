@@ -10,33 +10,38 @@ npm i -g apb
 ```
 
 # USAGE
-```
-apb -v 
-cd your directory
-apb
-```
+* options ignore case 
+* `apb version` = `apb -v` version
+* `apb help` = `apb -h` help
+* `apb build [dir]` = `apb -b [dir]` build
+
+
 
 
 # FEATURES
-## 模块ID压缩
+* **模块ID压缩**
+  
   除了入口模块文件会增加Query字符，其他依赖模块都会被压缩，如：
   
   `define('path/to/abc/def.js')`  =>
   `define('1')`
 
-## 路径压缩
-`require('path/to/abc/def.js');` =>
-`require('1')`
+* **路径压缩**
+  `require('path/to/abc/def.js');` =>
+  `require('1')`
   
-## 依赖压缩
-`define('1', ['path/to/abc/def.js'])`  =>
-`define('1', ['2'])`
-  
-## 简单
-所有模块都在本地，支持JS、CSS文件的require，自动包裹样式文件。
+* **依赖压缩**
 
-## 配置
-需要在源目录新建`apb.json`
+  `define('1', ['path/to/abc/def.js'])`  =>
+  `define('1', ['2'])`
+  
+* **简单**
+
+  所有模块都在本地，支持JS、CSS文件的require，自动包裹样式文件。
+
+* **配置**
+
+  需要在源目录新建`apb.json`
 
 
 
@@ -78,3 +83,12 @@ seajs.config({
     base: './'
 }).use(main);
 ```
+
+
+# Version
+## v0.0.4
+* 更新了readme
+
+## v0.0.1
+* 初始
+
