@@ -86,7 +86,8 @@ seajs.config({
 
 
 # Version
-## v0.0.4
+## v0.0.5
+* 修复了linux下全局命令不可用的BUG
 * 更新了readme
 
 ## v0.0.1
