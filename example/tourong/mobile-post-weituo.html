@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+ - mobile-post-weituo
+ - @author ydr.me
+ - 2014-09-06 16:20
+ -->
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="云淡然;http://ydr.me">
+    <meta name="keywords" content="关键词1,关键词2">
+    <meta name="description" content="描述语句">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <title>mobile-post-weituo</title>
+    <link rel="stylesheet" href="./static/css/mobile/lib.css"/>
+    <link rel="stylesheet" href="./static/css/mobile/post.css"/>
+</head>
+<body>
+<div class="g-top">
+    <div class="m-brand">
+        <h1 class="brand-title"><a href="./mobile-index.html"><img src="./static/img/mobile/logo.png" alt="logo" width="200" height="51"></a></h1>
+        <p class="brand-subtitle">投融委托</p>
+        <div class="location" id="location">
+            <img src="./static/img/mobile/location.png" alt="location" width="30" height="41" >
+            <p id="location-city">定位中...</p>
+        </div>
+    </div>
+</div>
+
+<div class="g-body">
+    <div class="m-alert m-alert-success m-tips">
+        <p>受人之托 忠人之事</p>
+
+        <p>接受资金方和项目方的委托，</p>
+
+        <p>代为寻找意向合作方，</p>
+
+        <p>免受分辨真伪之难，奔波之苦。</p>
+
+        <p>省时！省力！省心！</p>
+
+        <p class="btn"><a class="u-btn u-btn-success u-btn-block" href="tel:123456">拨打委托电话</a></p>
+
+        <p>或留下姓名电话，让客服人员联系您！</p>
+    </div>
+
+    <div class="m-weituo">
+        <form class="m-form" action="./mobile-post-weituo.html" method="post">
+            <div class="form-item">
+                <div class="form-key">姓名</div>
+                <div class="form-val namewrap">
+                    <input type="text" name="username" id="username" class="u-ipt name"/>
+                    <div class="u-select">
+                        <select name="sex" id="sex">
+                            <option value="1">先生</option>
+                            <option value="0">女士</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="form-key">手机</div>
+                <div class="form-val username">
+                    <input type="text" name="mobile" id="mobile" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="form-key">手机验证码</div>
+                <div class="form-val" id="mobileverify" data-mobile="#mobile">
+                    <div class="code">
+                        <input type="text" name="code" id="code" class="u-ipt" maxlength="6"/>
+                    </div>
+                    <div class="send">
+                        <button type="button" class="u-btn u-btn-secondary">免费获取验证码</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="form-key">委托项</div>
+                <div class="form-val username">
+                    <div class="u-select">
+                    <select name="weituoitem" id="weituoitem">
+                        <option value="1">我要投资</option>
+                        <option value="2">我要融资</option>
+                    </select></div>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="form-key">金额</div>
+                <div class="form-val">
+                    <input class="u-ipt form-ipt-small" type="text" name="money" id="money"/>
+                    万元
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="form-val">
+                    <button type="submit" class="u-btn u-btn-primary">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="g-bottom">
+    <ul class="m-bottom f-cb">
+        <li class="f-fl"><a href="./mobile-index.html">首页</a></li>
+        <li class="f-fl"><a href="tel:12345678">电话</a></li>
+        <li class="f-fl"><a href="mailto:123@123.com">邮件</a></li>
+        <li class="f-fl"><a href="./mobile-register.html">注册</a></li>
+        <li class="f-fl"><a href="./mobile-aboutus.html">关于</a></li>
+    </ul>
+</div>
+
+
+
+<script src="./static/js/libs/sea.js" id="seajsnode" data-main="mobile/post-weituo.js"></script>
+<script src="./static/js/libs/sea-config.js"></script>
+
+</body>
+</html>

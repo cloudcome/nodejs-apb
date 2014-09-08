@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+ - mobile-post-qiye
+ - @author ydr.me
+ - 2014-09-06 14:07
+ -->
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="云淡然;http://ydr.me">
+    <meta name="keywords" content="关键词1,关键词2">
+    <meta name="description" content="描述语句">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <title>mobile-post-qiye</title>
+    <link rel="stylesheet" href="./static/css/mobile/lib.css"/>
+    <link rel="stylesheet" href="./static/css/mobile/post.css"/>
+</head>
+<body>
+<div class="g-top">
+    <div class="m-brand">
+        <h1 class="brand-title"><a href="./mobile-index.html"><img src="./static/img/mobile/logo.png" alt="logo" width="200" height="51"></a></h1>
+        <p class="brand-subtitle">投融产品</p>
+        <div class="location" id="location">
+            <img src="./static/img/mobile/location.png" alt="location" width="30" height="41" >
+            <p id="location-city">定位中...</p>
+        </div>
+    </div>
+</div>
+
+<div class="g-body">
+    <div class="m-qiye">
+        <div class="m-group">
+            <div class="group-title"><b>小微企业主贷款</b></div>
+        </div>
+        
+        <div class="m-group">
+            <div class="group-title">申请条件</div>
+            <ol class="group-content">
+                <li>1、公司（或个体工商户）成立1年以上</li>
+                <li>2、个人及公司无不良信用记录</li>
+                <li>3、公司经营正常，业务稳定。</li>
+                <li>4、公司负债不能过高</li>
+            </ol>
+        </div>
+        
+        <div class="m-group">
+            <div class="group-title">所需资料</div>
+            <ol class="group-content">
+                <li>1、借款人及其配偶有效身份证件、户口簿、婚姻状况证明（声明）；</li>
+                <li>2、借款人及其配偶的收入证明；</li>
+                <li>3、借款人及其配偶个人征信记录；</li>
+                <li>4、借款人经营实体有关证明材料和经营资料。</li>
+            </ol>
+        </div>
+        
+        <div class="m-group">
+            <div class="group-title">在线申请</div>
+            <div class="group-content">
+                <form class="m-form" action="./mobile-post-licai.html" method="post">
+                    <div class="form-item">
+                        <div class="form-key">所在地区</div>
+                        <div class="form-val f-cb">
+                            <div class="u-select">
+                            <select name="area-province" id="area-province" class="f-fl">
+                                <option value="0">省</option>
+                            </select></div>
+                            <div class="u-select">
+                            <select name="area-city" id="area-city" class="f-fl">
+                                <option value="0">市</option>
+                            </select></div>
+                            <div class="u-select">
+                            <select name="area-town" id="area-town" class="f-fl">
+                                <option value="0">区</option>
+                            </select></div>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-key">贷款金额</div>
+                        <div class="form-val">
+                            <input type="text" name="money" id="money" class="u-ipt"/>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-key">姓名</div>
+                        <div class="form-val">
+                            <div class="namewrap">
+                                <input class="u-ipt name" type="text" name="name" id="name"/>
+                                <div class="u-select">
+                                <select name="sex" id="sex" class="sex">
+                                    <option value="1">先生</option>
+                                    <option value="1">女士</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-key">手机号</div>
+                        <div class="form-val">
+                            <input type="text" name="mobile" id="mobile" class="u-ipt" maxlength="11"/>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-key">手机验证码</div>
+                        <div class="form-val" id="mobileverify" data-mobile="#mobile">
+                            <div class="code">
+                                <input type="text" name="code" id="code" class="u-ipt" maxlength="6"/>
+                            </div>
+                            <div class="send">
+                                <button type="button" class="u-btn u-btn-secondary">免费获取验证码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-val">
+                            <button type="submit" class="u-btn u-btn-primary">立即提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="g-bottom">
+    <ul class="m-bottom f-cb">
+        <li class="f-fl"><a href="./mobile-index.html">首页</a></li>
+        <li class="f-fl"><a href="tel:12345678">电话</a></li>
+        <li class="f-fl"><a href="mailto:123@123.com">邮件</a></li>
+        <li class="f-fl"><a href="./mobile-register.html">注册</a></li>
+        <li class="f-fl"><a href="./mobile-aboutus.html">关于</a></li>
+    </ul>
+</div>
+
+
+<script src="./static/js/libs/sea.js" id="seajsnode" data-main="mobile/post-tourong.js"></script>
+<script src="./static/js/libs/sea-config.js"></script>
+
+</body>
+</html>

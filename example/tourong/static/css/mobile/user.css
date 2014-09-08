@@ -1,0 +1,127 @@
+@charset "utf-8";
+/*!
+ * user
+ * @author ydr.me
+ * 2014-09-06 16:56
+ */
+
+
+.m-register {
+    padding: 10px;
+}
+.m-register .code {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+}
+
+.m-register .send {
+    margin-left: 100px;
+}
+
+.m-login {
+    padding: 10px;
+}
+
+
+.m-userindex li{
+    float: left;
+    width: 50%;
+}
+
+.m-userindex .len{
+    width: 100%;
+    text-align: center;
+}
+
+.m-userindex .avatar{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.m-userindex a{
+    display: block;
+    padding: 10px 0;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    margin-bottom: -1px;
+    text-decoration: none;
+    color: #444;
+    text-align: center;
+}
+
+.m-userindex a:active{
+    background: #eee;
+}
+
+.m-userindex li:nth-child(2n) a{
+    border-left: 0;
+}
+
+
+.m-me{
+    padding: 10px;
+}
+
+.m-me .current-avatar img{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.m-me .namewrap{
+    position: relative;
+    height: 40px;
+}
+
+.m-me .namewrap .name{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 80px;
+    width: auto;
+}
+.m-me .namewrap .u-select{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+}
+
+.m-me .phone-country,
+.m-me .phone-province {
+    position: relative;
+    height: 40px;
+}
+
+.m-me .phone-country {
+    width: 20%;
+}
+
+.m-me .phone-province {
+    width: 30%;
+}
+
+.m-me .phone-city {
+    width: 50%;
+}
+
+.m-me .phone .sep {
+    position: absolute;
+    width: 10px;
+    top: 5px;
+    right: 0;
+    text-align: center;
+}
+
+.m-me .phone-country input,
+.m-me .phone-province input {
+    position: absolute;
+    width: auto;
+    top: 0;
+    right: 10px;
+    left: 0;
+}
