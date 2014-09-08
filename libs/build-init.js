@@ -29,6 +29,11 @@ module.exports = function (srcPath) {
         return process.exit(-1);
     }
 
+    if (!CONFIG.prefix) {
+        log('init', '`' + jsonFileName + '` require `prefix` param.', 'error');
+        return process.exit(-1);
+    }
+
     if (!CONFIG.src) {
         log('init', '`' + jsonFileName + '` require `src` param.', 'error');
         return process.exit(-1);

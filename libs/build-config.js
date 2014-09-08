@@ -8,7 +8,7 @@
 
 var fs = require('fs-extra');
 var path = require('path');
-var util = require('./build-util.js');
+//var util = require('./build-util.js');
 var log = require('./build-log.js');
 
 
@@ -20,7 +20,6 @@ var log = require('./build-log.js');
  * @param {Function} callback
  */
 module.exports = function buildConfig(srcPath, destPath, CONFIG, callback) {
-    var name = path.basename(CONFIG['sea-config.js']);
     var file = path.join(srcPath, CONFIG['sea-config.js']);
 
     fs.readFile(file, 'utf8', function (err, data) {
@@ -33,7 +32,7 @@ module.exports = function buildConfig(srcPath, destPath, CONFIG, callback) {
         data = data.replace('(\'data-main\');', '(\'data-main\')+\'?' +
             CONFIG._private.md5Param + '=' + CONFIG._private.md5String + '\';');
 
-        var destFile = path.join(destPath, name);
+        var destFile = path.join(destPath, CONFIG['sea-config.js']);
         fs.outputFile(destFile, data, function (err) {
             if (err) {
                 log('write', 'config file ERROR: ' + err.message, 'error');

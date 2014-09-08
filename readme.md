@@ -1,9 +1,6 @@
 #apb [![NPM version](https://img.shields.io/npm/v/apb.svg?style=flat)](https://npmjs.org/package/apb)
 AMD Package Builder for seajs
 
-![2](http://ydrimg.oss-cn-hangzhou.aliyuncs.com/2014-08-31_155604.png)
-
-
 # install
 ```
 npm i -g apb
@@ -46,8 +43,9 @@ npm i -g apb
 
 
 # apb.json
-**以下路径配置都是参考`apb.json`的。**
+**相关路径的配置都是残酷pab.json文件的**
 
+* `prefix` 入口模块的前缀，默认为`./`
 * `md5Param` 默认为`v`，即`?v=123456`
 * `md5Length` 文件后缀md5长度，默认为6，如初始文件为`app.js`，build之后为`app.js?v=123abc`
 * `src` 原始文件数组，不能使用通配符
@@ -58,6 +56,7 @@ npm i -g apb
 **示例**
 ```js
 {
+    "prefix": "./",
     "md5Length": 6,
     "src": ["app.js", "app2.js"],
     "dest": "../dest/",
@@ -86,6 +85,11 @@ seajs.config({
 
 
 # Version
+## v0.0.6
+* 修复了多次依赖构建重复的BUG
+* 优化了构建流程
+* 增加了构建配置选项
+
 ## v0.0.5
 * 修复了linux下全局命令不可用的BUG
 * 更新了readme

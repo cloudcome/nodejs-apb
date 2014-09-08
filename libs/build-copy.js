@@ -12,44 +12,49 @@ var glob = require('glob');
 var path = require('path');
 var log = require('./build-log.js');
 var util = require('./build-util.js');
-
+var regSequenceSep = new RegExp(path.sep === '\\' ? '\\\\\\\\': '\\/\\/', 'g');
 
 
 /**
  * 复制文件
  * @param {String} srcPath  起始路径
  * @param {String} destPath 终点路径
- * @param {String} files    匹配文件，支持通配符
+ * @param {String/Array} files    匹配文件，支持通配符
  * @param callback
  */
 module.exports = function copy(srcPath, destPath, files, callback) {
-    if(!Array.isArray(files)){
+    if (!Array.isArray(files)) {
         files = [files];
     }
 
-    howdo.each(files, function(index, file, done){
-        glob(path.join(srcPath, file), function (err, ps) {
+
+    howdo.each(files, function (index, file, next) {
+        var srcGlob = path.join(srcPath, file);
+
+        glob(srcGlob, function (err, ps) {
             if (err) {
-                log('copy', 'copy ERROR: ' + err.message, 'error');
-                return callback(err);
+                log('glob', srcGlob, 'error');
+                console.log(err);
+                return process.exit(-1);
             }
 
-            howdo.each(ps, function (index, src, done) {
-                src = util.fixPath(src);
+            howdo.each(ps, function (index, src, next) {
+                src = util.toSystemPath(src);
 
-                var dest = src.replace(srcPath, destPath);
+                var dest = src.replace(srcPath, destPath).replace(regSequenceSep, path.sep);
 
                 log('copy', src);
                 fs.copy(src, dest, function (err) {
-                    if(err){
-                        log('write', 'ERROR: ' + err.message);
+                    if (err) {
+                        log('write', dest, 'error');
+                        console.log(err);
                         return process.exit(-1);
                     }
 
                     log('write', dest, 'success');
-                    done();
+                    next();
                 });
-            }).together(done);
+            }).follow(next);
         });
-    }).together(callback);
+    }).follow(callback);
 };

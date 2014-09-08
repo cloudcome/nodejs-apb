@@ -22,9 +22,19 @@ module.exports.md5 = function md5(string) {
 
 
 // 修复path，与系统相同
-module.exports.fixPath = function fixPath(p) {
+module.exports.toSystemPath = function toSystemPath(p) {
     if (path.sep === '\\') {
         return p.replace(/\//g, '\\');
+    }
+
+    return p;
+};
+
+
+// 转换路径为 URL 路径格式
+module.exports.toURLPath = function (p) {
+    if (path.sep === '\\') {
+        return p.replace(/\\/g, '/');
     }
 
     return p;

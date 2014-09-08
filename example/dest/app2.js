@@ -1,1 +1,1 @@
-define("app2.js?v=18c7bd",function(){"use strict";console.log(123)});
+define("./app2.js?v=47d373",function(){"use strict";console.log(123)});

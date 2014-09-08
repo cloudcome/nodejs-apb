@@ -7,7 +7,7 @@
 'use strict';
 
 var path = require('path');
-var howdo = require('howdo');
+//var howdo = require('howdo');
 var fs = require('fs-extra');
 var minifyCSS = require('clean-css');
 var uglifyJS = require('uglify-js');
@@ -17,38 +17,52 @@ var regComment = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg;
 var regRequire = /require\(["'](.*?)["']\)/g;
 var regDefine = /define\s*\(\s*function\s*\(/;
 var compressorOptions = {
-    sequences: true,  // join consecutive statemets with the “comma operator”
-    properties: true,  // optimize property access: a["foo"] → a.foo
-    dead_code: true,  // discard unreachable code
-    drop_debugger: true,  // discard “debugger” statements
-    unsafe: false, // some unsafe optimizations (see below)
-    conditionals: true,  // optimize if-s and conditional expressions
-    comparisons: true,  // optimize comparisons
-    evaluate: true,  // evaluate constant expressions
-    booleans: true,  // optimize boolean expressions
-    loops: true,  // optimize loops
-    unused: true,  // drop unused variables/functions
-    hoist_funs: true,  // hoist function declarations
-    hoist_vars: false, // hoist variable declarations
-    if_return: true,  // optimize if-s followed by return/continue
-    join_vars: true,  // join var declarations
-    cascade: true,  // try to cascade `right` into `left` in sequences
-    side_effects: true,  // drop side-effect-free statements
-    warnings: true,  // warn about potentially dangerous optimizations/code
-    global_defs: {}     // global definitions
+    // 连续单语句，逗号分开
+    // 如： alert(1);alert(2); => alert(1),alert(2)
+    sequences: false,
+    // 重写属性
+    // 如：foo['bar'] => foo.bar
+    properties: false,
+    // 删除无意义代码
+    dead_code: false,
+    // 移除`debugger;`
+    drop_debugger: true,
+    // 使用以下不安全的压缩
+    unsafe: false,
+    //
+    unsafe_comps: false,
+    // 压缩if表达式
+    conditionals: false,
+    // 压缩条件表达式
+    comparisons: false,
+    // 压缩常数表达式
+    evaluate: false,
+    // 压缩布尔值
+    booleans: true,
+    // 压缩循环
+    loops: false,
+    // 移除未使用变量
+    unused: true,
+    // 函数声明提前
+    hoist_funs: true,
+    // 变量声明提前
+    hoist_vars: true,
+    // 压缩 if return if continue
+    if_return: false,
+    // 合并连续变量省略
+    join_vars: true,
+    // 小范围连续变量压缩
+    cascade: false,
+    // 不显示警告语句
+    warnings: false,
+    side_effects: true,
+    pure_getters: true,
+    pure_funcs: null,
+    negate_iife: true,
+    // 全局变量
+    global_defs: {}
 };
-//keepSpecialComments - * for keeping all (default), 1 for keeping first one only, 0 for removing all
-//keepBreaks - whether to keep line breaks (default is false)
-//benchmark - turns on benchmarking mode measuring time spent on cleaning up (run npm run bench to see example)
-//root - path to resolve absolute @import rules and rebase relative URLs
-//relativeTo - path to resolve relative @import rules and URLs
-//target - path to a folder or an output file to which rebase all URLs
-//processImport - whether to process @import rules
-//    noRebase - whether to skip URLs rebasing
-//noAdvanced - set to true to disable advanced optimizations - selector & property merging, reduction, etc.
-//    roundingPrecision - Rounding precision, defaults to 2.
-//compatibility - Force compatibility mode to ie7 or ie8. Defaults to not set.
-//    debug - set to true to get minification statistics under stats property (see test/custom-test.js for examples)
+
 var minifyCSSOptions = {
     keepSpecialComments: 0,
     keepBreaks: false
@@ -122,10 +136,15 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
 
     while ((ret = regRequire.exec(data)) !== null) {
         requireFile = path.join(basePath, ret[1]);
-        the.requiresIdMap[requireFile] = ++the.requireId;
-        sourceMap[ret[0]] = the.requireId;
-        requireIds.push(the.requireId);
-        requires.push(requireFile);
+
+        if (the.requiresIdMap[requireFile]) {
+            sourceMap[ret[0]] = the.requiresIdMap[requireFile];
+        } else {
+            the.requiresIdMap[requireFile] = ++the.requireId;
+            sourceMap[ret[0]] = the.requireId;
+            requireIds.push(the.requireId);
+            requires.push(requireFile);
+        }
     }
 
     // 1. 替换 require
@@ -139,7 +158,9 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
     var deps = util.arrayToString(requireIds);
     data = data.replace(regDefine, 'define(\'' +
         (name === the.srcName ?
+            // 入口文件
             the.srcName + '?' + CONFIG._private.md5Param + '=' + CONFIG._private.md5String :
+            // 依赖文件
             the.requiresIdMap[file]) +
         '\', ' +
         (deps ? '[' + deps + '],' : '') +
@@ -147,10 +168,14 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
 
 
     // 3. 混淆压缩
+    // http://lisperator.net/uglifyjs/mangle
     var ast = uglifyJS.parse(data);
     ast.figure_out_scope();
     var compressor = uglifyJS.Compressor(compressorOptions);
     ast = ast.transform(compressor);
+    ast.figure_out_scope();
+    ast.compute_char_frequency();
+    ast.mangle_names();
     data = ast.print_to_string();
 
     // 4. 保存
@@ -208,7 +233,9 @@ BuildModule.prototype._deepRequires = function _deepRequires() {
                 }
             }
         } catch (err) {
-            log('read', 'read file ERROR: ' + srcFile, 'error');
+            log('read', srcFile, 'error');
+            console.log(err);
+            process.exit(-1);
         }
     }
 

@@ -1,4 +1,5 @@
 {
+    "prefix": "./",
     "md5Length": 6,
     "src": ["app.js", "app2.js"],
     "dest": "../dest/",
