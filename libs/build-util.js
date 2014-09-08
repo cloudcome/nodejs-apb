@@ -6,10 +6,10 @@
 
 'use strict';
 
-var howdo = require('howdo');
+//var howdo = require('howdo');
 var crypto = require('crypto');
 var path = require('path');
-var fs = require('fs-extra');
+//var fs = require('fs-extra');
 var log = require('./build-log.js');
 
 
@@ -53,4 +53,26 @@ module.exports.arrayToString = function arrayToString(array) {
     });
 
     return string;
+};
+
+
+module.exports.dateTime = function () {
+    var d = new Date();
+    var _fixNumber = function (num) {
+        return num < 10 ? '0' + num : num;
+    }
+
+    return [
+        d.getFullYear(),
+        '-',
+        _fixNumber(d.getMonth() + 1),
+        '-',
+        _fixNumber(d.getDate()),
+        ' ',
+        _fixNumber(d.getHours()),
+        ':',
+        _fixNumber(d.getMinutes()),
+        ':',
+        _fixNumber(d.getSeconds())
+    ].join('');
 };

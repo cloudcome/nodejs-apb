@@ -11,6 +11,7 @@ var util = require('./build-util.js');
 var fs = require('fs-extra');
 var path = require('path');
 var jsonFileName = 'apb.json';
+var pkg = require('../package.json');
 
 
 // * `md5Param` 默认为`v`，即`?v=123456`
@@ -56,6 +57,7 @@ module.exports = function (srcPath) {
     CONFIG._private = {};
     CONFIG._private.md5Param = CONFIG.md5Param || 'v';
     CONFIG._private.md5String = util.md5(Date.now()).slice(0, CONFIG.md5Length || 6);
+    CONFIG._private.package = pkg;
 
     return CONFIG;
 };

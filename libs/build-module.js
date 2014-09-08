@@ -76,6 +76,9 @@ var minifyCSSOptions = {
  * @constructor
  */
 function BuildModule(srcName, srcFile, CONFIG) {
+    var buildLog = '/*apb ' + Date.now() + '*/\n';
+    var buffer = new Buffer(buildLog, 'utf8');
+
     this.srcName = srcName;
     this.srcFile = srcFile;
 
@@ -89,6 +92,8 @@ function BuildModule(srcName, srcFile, CONFIG) {
     this.requireId = 0;
 
     this.CONFIG = CONFIG;
+
+    this.bufferList.push(buffer);
 }
 
 
