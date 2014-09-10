@@ -7,10 +7,11 @@ npm i -g apb
 ```
 
 # USAGE
-* options ignore case 
-* `apb version` = `apb -v` version
-* `apb help` = `apb -h` help
-* `apb build [dir]` = `apb -b [dir]` build
+* 全部参数忽略大小写
+* `apb version` = `apb -v` 输出版本信息
+* `apb help` = `apb -h` 输出帮助信息
+* `apb build [dir]` = `apb -b [dir]` 在指定目录下执行构建工作
+* 更多示例可以参考`example`文件夹下的东西
 
 
 
@@ -21,7 +22,7 @@ npm i -g apb
   除了入口模块文件会增加Query字符，其他依赖模块都会被压缩，如：
   
   `define('path/to/abc/def.js')`  =>
-  `define('1')`
+  `define('path/to/abc/def.js?v=123abc')`
 
 * **路径压缩**
   `require('path/to/abc/def.js');` =>
@@ -29,8 +30,8 @@ npm i -g apb
   
 * **依赖压缩**
 
-  `define('1', ['path/to/abc/def.js'])`  =>
-  `define('1', ['2'])`
+  `define('2', ['path/to/abc/def.js'])`  =>
+  `define('2', ['1'])`
   
 * **简单**
 
@@ -43,15 +44,15 @@ npm i -g apb
 
 
 # apb.json
-**相关路径的配置都是残酷pab.json文件的**
-
 * `prefix` 入口模块的前缀，默认为`./`
-* `md5Param` 默认为`v`，即`?v=123456`
+* `md5Param` 默认为`v`，即`?v=123abc`
 * `md5Length` 文件后缀md5长度，默认为6，如初始文件为`app.js`，build之后为`app.js?v=123abc`
-* `src` 原始文件数组，不能使用通配符
-* `dest` 目标文件夹
-* `sea-config.js` seajs的配置文件路径
-* `copyFiles` 需要原样复制的文件，支持通配符和数组
+* `src` 原始文件，支持通配符和数组，相对于`app.json`
+* `dest` 目标文件夹，相对于`app.json`
+* `sea-config.js` seajs的配置文件路径，相对于`app.json`
+* `copyFiles` 需要原样复制的文件，支持通配符和数组，相对于`app.json`
+
+
 
 **示例**
 ```js
@@ -85,7 +86,8 @@ seajs.config({
 
 
 # Version
-## v0.0.7
+## v0.0.8
+* 更新了部分语句描述
 * 修复了多次依赖构建重复的BUG
 * 优化了构建流程
 * 增加了构建配置选项
