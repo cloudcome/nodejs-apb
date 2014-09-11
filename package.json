@@ -1,6 +1,6 @@
 {
   "name": "apb",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "AMD Package Builder for seajs",
   "script": {},
   "bin": {
@@ -40,7 +40,6 @@
     "fs-extra": "^0.11.0",
     "glob": "^4.0.5",
     "howdo": "^1.1.2",
-    "uglify-js": "^2.4.15",
-    "yuicompressor": "^2.4.8"
+    "uglify-js": "^2.4.15"
   }
 }
