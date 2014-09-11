@@ -99,13 +99,13 @@ function BuildModule(srcName, srcFile, CONFIG) {
 
 BuildModule.prototype.output = function (destPath, callback) {
     var the = this;
-    log('build', the.srcFile);
+    log('build', the.srcFile, 'warning');
     the._deepRequires();
     var data = Buffer.concat(this.bufferList).toString();
     var destFile = path.join(destPath, this.srcName);
     fs.outputFile(destFile, data, function (err) {
         if (err) {
-            log('build', 'error: ' + err.message, 'error');
+            console.log(err);
             return process.exit(-1);
         }
 
@@ -220,7 +220,7 @@ BuildModule.prototype._deepRequires = function _deepRequires() {
                 // 3. seajs.importStyle 包裹成JS文件
                 data = 'define("' + the.requiresIdMap[srcFile] + '",function(){seajs.importStyle("' +
                     data.replace(/\\/mg, '\\\\').replace(/"/mg, '\\"') +
-                    '")});';
+                    '")});\n';
 
                 // 4. 存入 buffer 列表
                 var buffer = new Buffer(data, 'utf8');

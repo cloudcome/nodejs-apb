@@ -1,6 +1,6 @@
 {
   "name": "apb",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "AMD Package Builder for seajs",
   "script": {},
   "bin": {
