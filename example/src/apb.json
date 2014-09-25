@@ -1,8 +1,0 @@
-{
-    "prefix": "./",
-    "md5Length": 6,
-    "src": ["app.js", "app2.js"],
-    "dest": "../dest/",
-    "sea-config.js": "./sea-config.js",
-    "copyFiles": ["**/*.html", "./sea.js"]
-}

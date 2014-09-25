@@ -1,8 +1,0 @@
-{
-    "prefix": "./",
-    "md5Length": 6,
-    "src": ["./static/js/mobile/*.js"],
-    "dest": "../tourong-dest/",
-    "sea-config.js": "./static/js/libs/sea-config.js",
-    "copyFiles": ["*.html", "./static/js/libs/sea.js", "./static/css/", "./static/docs/", "./static/fonts/", "./static/img/", "./static/psd/"]
-}
