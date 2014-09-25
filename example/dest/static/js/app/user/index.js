@@ -1,15 +1,1 @@
-/*!
- * index.js
- * @author ydr.me
- * @create 2014-09-25 21:48
- */
-
-
-define(function (require, exports, module) {
-    /**
-     * @module app/user/index
-     */
-    'use strict';
-
-    console.log('app/user/index');
-});
+define("index.js?v=34741f",function(){"use strict";console.log("app/user/index")});/*apb 1411654304899*/
