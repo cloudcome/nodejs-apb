@@ -9,5 +9,5 @@
 var node = document.getElementById('seajsnode');
 var main = node.getAttribute('data-main');
 seajs.config({
-    base: '/example/src/static/js/app/'
+    base: '/static/js/app/'
 }).use(main);

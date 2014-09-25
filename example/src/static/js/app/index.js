@@ -1,5 +1,5 @@
 /*!
- * app1.js.js
+ * index.js
  * @author ydr.me
  * @create 2014-09-25 19:19
  */
@@ -7,11 +7,11 @@
 
 define(function (require, exports, module) {
     /**
-     * @module app/app1.js
+     * @module app/index
      */
     'use strict';
 
-    require('../libs/lib1.js');
+    require('../libs/lib.js');
 
-    console.log('app/app1.js');
+    console.log('app/index.js');
 });

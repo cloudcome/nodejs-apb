@@ -88,7 +88,11 @@ module.exports = function (srcPath) {
                 }).together(next);
             });
         })
-        // 2. 构建
+        // 2. 复制文件
+        .task(function (next) {
+            buildCopy(srcPath, destPath, CONFIG.copyFiles, next);
+        })
+        // 3. 构建
         .task(function (next) {
             howdo.each(buildFiles, function (index, info, done) {
                 var build = new buildModule(info.name, info.file, CONFIG);
@@ -101,13 +105,9 @@ module.exports = function (srcPath) {
                 });
             }).together(next);
         })
-        // 3. 配置文件
+        // 4. 配置文件
         .task(function (next) {
             buildConfig(srcPath, destPath, CONFIG, next);
-        })
-        // 4. 复制文件
-        .task(function (next) {
-            buildCopy(srcPath, destPath, CONFIG.copyFiles, next);
         })
         // follow
         .follow(function (err) {

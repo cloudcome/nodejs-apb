@@ -12,7 +12,7 @@ var glob = require('glob');
 var path = require('path');
 var log = require('./build-log.js');
 var util = require('./build-util.js');
-var regSequenceSep = new RegExp(path.sep === '\\' ? '\\\\\\\\': '\\/\\/', 'g');
+var regSequenceSep = new RegExp(path.sep === '\\' ? '\\\\\\\\' : '\\/\\/', 'g');
 
 
 /**
@@ -41,9 +41,16 @@ module.exports = function copy(srcPath, destPath, files, callback) {
             howdo.each(ps, function (index, src, next) {
                 src = util.toSystemPath(src);
 
-                var dest = src.replace(srcPath, destPath).replace(regSequenceSep, path.sep);
+                var srcName = path.relative(srcPath, src);
+
+                if(srcName === '' || srcName==='apb.json'){
+                    return next();
+                }
+
+                var dest = path.join(destPath, srcName);
 
                 log('copy', src);
+
                 fs.copy(src, dest, function (err) {
                     if (err) {
                         log('write', dest, 'error');

@@ -52,11 +52,11 @@ module.exports = function (basedir) {
 
             case 3:
                 template = template.replace(regSeaConfig, _clean(chunk) || './static/js/sea-config.js');
-                log('4/4', '请输入构建的需要【原样复制的目录或文件】，默认为空：', 'info');
+                log('4/4', '请输入构建的需要【原样复制的目录或文件】，默认为`./**/*.*`：', 'info');
                 break;
 
             case 4:
-                template = template.replace(regCopyFile, _clean(chunk, !0) || '');
+                template = template.replace(regCopyFile, _clean(chunk, !0) || '"./**/*.*"');
 
                 fs.outputFile(writeFile, template, 'utf-8', function (err) {
                     if (err) {

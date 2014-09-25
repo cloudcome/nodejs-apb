@@ -14,6 +14,6 @@ var node = document.getElementById('{{seajsId}}');
 var main = node.getAttribute('data-main');
 
 seajs.config({
-	// 这个base是参考页面
+	// 这个base是参考页面的
     base: '{{base}}'
 }).use(main);
