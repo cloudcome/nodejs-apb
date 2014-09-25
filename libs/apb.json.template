@@ -1,0 +1,6 @@
+{
+    "src": [{{src}}],
+    "dest": "{{dest}}",
+    "sea-config.js": "{{seaConfig}}",
+    "copyFiles": [{{copyFile}}]
+}

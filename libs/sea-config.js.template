@@ -1,0 +1,19 @@
+/**
+ * sea-config
+ * @author ydr.me
+ * @create {{datetime}}
+ */
+
+'use strict';
+
+var node = document.getElementById('{{seajsId}}');
+
+// 这一行特别重要，构建工具会在这一行添加后缀
+// 原始：     var main = node.getAttribute('data-main');
+// 构建之后：  var main = node.getAttribute('data-main') + '?v=abc123';
+var main = node.getAttribute('data-main');
+
+seajs.config({
+	// 这个base是参考页面
+    base: '{{base}}'
+}).use(main);

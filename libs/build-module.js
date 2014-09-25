@@ -99,10 +99,13 @@ function BuildModule(srcName, srcFile, CONFIG) {
 
 BuildModule.prototype.output = function (destPath, callback) {
     var the = this;
+
     log('build', the.srcFile, 'warning');
     the._deepRequires();
+
     var data = Buffer.concat(this.bufferList).toString();
-    var destFile = path.join(destPath, this.srcName);
+    var destFile = path.join(destPath, the.srcName);
+
     fs.outputFile(destFile, data, function (err) {
         if (err) {
             console.log(err);
@@ -164,7 +167,7 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
     data = data.replace(regDefine, 'define(\'' +
         (name === the.srcName ?
             // 入口文件
-            the.srcName + '?' + CONFIG._private.md5Param + '=' + CONFIG._private.md5String :
+            the.srcName + '?v=' + CONFIG._private.md5String :
             // 依赖文件
             the.requiresIdMap[file]) +
         '\', ' +
@@ -202,6 +205,8 @@ BuildModule.prototype._deepRequires = function _deepRequires() {
     var allRquires = [];
 
     _loop(the.srcName, the.srcFile);
+
+
 
     function _loop(srcName, srcFile) {
         var data;

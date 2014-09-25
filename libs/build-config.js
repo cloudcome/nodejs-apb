@@ -10,7 +10,8 @@ var fs = require('fs-extra');
 var path = require('path');
 //var util = require('./build-util.js');
 var log = require('./build-log.js');
-
+var regComment = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg;
+var regMain = /getAttribute\s*?(\s*?['"]data-main['"]\s*?)/;
 
 /**
  * 构建配置文件
@@ -29,8 +30,9 @@ module.exports = function buildConfig(srcPath, destPath, CONFIG, callback) {
             return callback(err);
         }
 
-        data = data.replace('(\'data-main\');', '(\'data-main\')+\'?' +
-            CONFIG._private.md5Param + '=' + CONFIG._private.md5String + '\';');
+        data = data
+            .replace(regComment, '')
+            .replace(regMain, 'getAttribute(\'data-main\')+\'?v=' + CONFIG._private.md5String + '\';');
 
         var destFile = path.join(destPath, CONFIG['sea-config.js']);
         fs.outputFile(destFile, data, function (err) {

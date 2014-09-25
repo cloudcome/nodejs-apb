@@ -24,6 +24,8 @@ module.exports = function (srcPath) {
     var requiresCount = 0;
     var destPath = path.join(srcPath, CONFIG.dest);
 
+
+
 //    log('welcome', 'AMD Package Builder', 'rainbow');
 
 
@@ -49,7 +51,7 @@ module.exports = function (srcPath) {
 
                     files.forEach(function (file) {
                         buildFiles.push({
-                            name: CONFIG.prefix + util.toURLPath(path.relative(srcPath, file)),
+                            name: util.toURLPath(path.relative(srcPath, file)),
                             file: util.toSystemPath(file)
                         });
                     });
@@ -90,6 +92,7 @@ module.exports = function (srcPath) {
         .task(function (next) {
             howdo.each(buildFiles, function (index, info, done) {
                 var build = new buildModule(info.name, info.file, CONFIG);
+
                 build.output(destPath, function (err, count) {
                     if (count) {
                         requiresCount += count;
