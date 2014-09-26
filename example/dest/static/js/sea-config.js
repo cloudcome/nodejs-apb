@@ -1,1 +1,1 @@
-"use strict";var node=document.getElementById("seajsnode"),main=node.getAttribute("data-main")+"?v=34741f";seajs.config({base:"/static/js/app/"}).use(main);
+"use strict";var node=document.getElementById("seajsnode"),main=node.getAttribute("data-main")+"?v=9f5219";seajs.config({base:"/static/js/app/"}).use(main);
