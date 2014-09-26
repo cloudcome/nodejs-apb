@@ -14,3 +14,7 @@ define(function (require, exports, module) {
 ```
 var lib = require('../libs/lib.js');
 ```
+
+## 不想被打包的模块
+不想被打包的模块，可以直接暴露到全局。比如jquery、zepto等。不过，还是非常不推荐这样，既然用了模块化，
+那么就要模块化到底，jquery、zepto这些都已经简单模块化了，用到什么取什么，才是正确之道。
