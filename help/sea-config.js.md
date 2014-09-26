@@ -28,8 +28,10 @@ app.html 使用了 app.js 作为入口文件，app.js 依赖了 lib.js，页面�
 ```
 
 以上注意点：
-* `sea.js`标签的`id`属性必须写。
-* `sea.js`标签的`data-main`属性必须写，只需要写入口文件名称即可了。
+* `sea.js`标签的`id`属性必须写，且必须为`seajsnode`。
+* `sea.js`标签的`data-main`属性必须写，这里的属性名和配置的`base`构成了完整的路径。
+  如，填写`app.js`，它的完整路径就是`base + app.js` => `/static/js/app/app.js`。
+  配置`base`项的路径是参考引用`seajs`的页面的，因此如果你的页面是有多层的，那么得写绝对路径。
 * `sea-config.js`标签必须放在`sea.js`后面。
 
 `sea-config.js`这么写（这个配置文件也可以用构建工具`apb sea`自动生成）：
