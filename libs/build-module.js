@@ -112,9 +112,6 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
 
     // 2. 替换 define
     var deps = util.arrayToString(requireIds);
-    console.log('<><><>');
-    console.log(path.relative(CONFIG.base, the.srcName));
-    console.log('<><><>');
     data = data.replace(regDefine, 'define(\'' +
         (name === the.srcName ?
             // 入口文件
