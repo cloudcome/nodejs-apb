@@ -21,7 +21,9 @@ var map = {
     success: 'green',
     warning: 'yellow',
     error: 'red',
-    muted: 'grey'
+    danger: 'red',
+    muted: 'grey',
+    normal: 'white'
 };
 
 module.exports = function log(isReverse, event, message, type) {

@@ -42,7 +42,7 @@ npm install -g apb
 
 
 # Version
-## v0.0.11
+## v0.0.12
 * 增加生成`apb.json`
 * 增加生成`sea-config.json`
 * 完善构建过程
