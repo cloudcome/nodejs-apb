@@ -7,6 +7,11 @@
 'use strict';
 
 var uglifyJS = require('uglify-js');
+var jsmin = require('jsmin').jsmin;
+var jsmin2 = require('jsmin2');
+var yuicompressor = require('yuicompressor');
+//var parser = uglifyJS.parser;
+//var uglify = uglifyJS.uglify;
 var compressorOptions = {
     // 连续单语句，逗号分开
     // 如： alert(1);alert(2); => alert(1),alert(2)
@@ -33,7 +38,7 @@ var compressorOptions = {
     // 压缩循环
     loops: false,
     // 移除未使用变量
-    unused: true,
+    unused: false,
     // 函数声明提前
     hoist_funs: true,
     // 变量声明提前
@@ -55,19 +60,39 @@ var compressorOptions = {
 };
 
 
-module.exports = function (data) {
-    var ast = uglifyJS.parse(data);
+module.exports = function (data, callback) {
+//    var ast = uglifyJS.parse(data);
+//
+//    ast.figure_out_scope();
+//
+//    var compressor = uglifyJS.Compressor(compressorOptions);
+//
+//    ast = ast.transform(compressor);
+//    ast.figure_out_scope();
+//    ast.compute_char_frequency();
+//    ast.mangle_names();
+//    data = ast.print_to_string();
 
-    ast.figure_out_scope();
+    // http://blog.csdn.net/larrywangsun/article/details/28093489
+//    data = uglifyJS.minify(data, {
+//        fromString: true,
+//        // 混淆压缩
+//        mangle: true
+//    });
 
-    var compressor = uglifyJS.Compressor(compressorOptions);
 
-    ast = ast.transform(compressor);
-    ast.figure_out_scope();
-    ast.compute_char_frequency();
-    ast.mangle_names();
-    data = ast.print_to_string();
+//    data = jsmin2(data).code;
 
-    return data;
+
+    yuicompressor.compress(data, {
+        //Compressor Options:
+        charset: 'utf8',
+        type: 'js',
+        nomunge: true,
+        'line-break': -1
+    }, function(err, data, extra) {
+        callback(err,  data);
+    });
+
 };
 

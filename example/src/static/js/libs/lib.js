@@ -11,5 +11,6 @@ define(function () {
      */
     'use strict';
 
+    require('./jquery.js');
     console.log('libs/lib.js');
 });

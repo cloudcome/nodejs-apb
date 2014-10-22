@@ -48,20 +48,21 @@ BuildModule.prototype.output = function (destPath, callback) {
     var buffer = new Buffer(buildLog, 'utf8');
 
     log('build', the.srcFile, 'warning');
-    the._deepRequires();
-    the.bufferList.push(buffer);
+    the._deepRequires(function () {
+        the.bufferList.push(buffer);
 
-    var data = Buffer.concat(the.bufferList).toString();
-    var destFile = path.join(destPath, the.srcName);
+        var data = Buffer.concat(the.bufferList).toString();
+        var destFile = path.join(destPath, the.srcName);
 
-    fs.outputFile(destFile, data, function (err) {
-        if (err) {
-            console.log(err);
-            return process.exit(-1);
-        }
+        fs.outputFile(destFile, data, function (err) {
+            if (err) {
+                console.log(err);
+                return process.exit(-1);
+            }
 
-        log('write', destFile, 'success');
-        callback(null, the.requireId);
+            log('write', destFile, 'success');
+            callback(null, the.requireId);
+        });
     });
 };
 
@@ -74,7 +75,7 @@ BuildModule.prototype.output = function (destPath, callback) {
  * @returns {Array}
  * @private
  */
-BuildModule.prototype._parseRequires = function _parseRequires(name, file, data) {
+BuildModule.prototype._parseRequires = function _parseRequires(name, file, data, callback) {
     var the = this;
     var CONFIG = the.CONFIG;
     // 正则结果
@@ -124,13 +125,37 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
 
 
     // 3. 混淆压缩
-    data = jsmini(data);
+    jsmini(data, function (err, data) {
+        if (err) {
+            log('jsmini', file, 'error');
+            console.log(err);
+            process.exit(-1);
 
-    // 4. 保存
-    var buffer = new Buffer(data, 'utf8');
-    the.bufferList.push(buffer);
+            return;
+        }
 
-    return  requires;
+        // 4. 保存
+        var buffer = new Buffer(data, 'utf8');
+        the.bufferList.push(buffer);
+
+        callback(null, requires);
+    });
+
+
+//    // 3. 混淆压缩
+//    try{
+//        data = jsmini(data);
+//    }catch(err){
+//        log('jsmini', file, 'error');
+//        console.log(err);
+//        process.exit(-1);
+//    }
+//
+//    // 4. 保存
+//    var buffer = new Buffer(data, 'utf8');
+//    the.bufferList.push(buffer);
+//
+//    return  requires;
 };
 
 
@@ -140,56 +165,62 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data)
  * 防止同一个文件被读取2次
  * @private
  */
-BuildModule.prototype._deepRequires = function _deepRequires() {
+BuildModule.prototype._deepRequires = function _deepRequires(callback) {
     var the = this;
     var allRquires = [];
 
     _loop(the.srcName, the.srcFile);
 
 
-
     function _loop(srcName, srcFile) {
         var data;
-        var requires;
         var isCSSFile = path.extname(srcFile).toLowerCase() === '.css';
 
         try {
             // 1. 获取文件内容
             data = fs.readFileSync(srcFile, 'utf8');
+        } catch (err) {
+            log('read', srcFile, 'error');
+            console.log(err);
+            process.exit(-1);
+        }
 
-            // 当前文件是样式文件
-            if (isCSSFile) {
-                // 2. 压缩
+        // 当前文件是样式文件
+        if (isCSSFile) {
+            // 2. 压缩
+            try {
                 data = cssmini(data);
-
-                // 3. seajs.importStyle 包裹成JS文件
-                data = 'define("' + the.requiresIdMap[srcFile] + '",function(){seajs.importStyle("' +
-                    data.replace(/\\/mg, '\\\\').replace(/"/mg, '\\"') +
-                    '")});\n';
-
-                // 4. 存入 buffer 列表
-                var buffer = new Buffer(data, 'utf8');
-                the.bufferList.push(buffer);
+            } catch (err) {
+                log('cssmini', srcFile, 'error');
+                console.log(err);
+                process.exit(-1);
             }
-            // 当前文件是脚本文件
-            else {
-                requires = the._parseRequires(srcName, srcFile, data);
+
+
+            // 3. seajs.importStyle 包裹成JS文件
+            data = 'define("' + the.requiresIdMap[srcFile] + '",function(){seajs.importStyle("' +
+                data.replace(/\\/mg, '\\\\').replace(/"/mg, '\\"') +
+                '")});\n';
+
+            // 4. 存入 buffer 列表
+            var buffer = new Buffer(data, 'utf8');
+            the.bufferList.push(buffer);
+        }
+        // 当前文件是脚本文件
+        else {
+            the._parseRequires(srcName, srcFile, data, function (err, requires) {
                 if (requires.length) {
                     requires.forEach(function (requireFile) {
                         allRquires.push(requireFile);
                         log('require', requireFile);
                         _loop(path.basename(requireFile), requireFile);
                     });
+                } else {
+                    callback(null, allRquires);
                 }
-            }
-        } catch (err) {
-            log('read', srcFile, 'error');
-            console.log(err);
-            process.exit(-1);
+            });
         }
     }
-
-    return allRquires;
 };
 
 
