@@ -19,11 +19,10 @@ var step = 0;
 
 
 module.exports = function(basedir){
-    console.log('');
-    console.log('apb, AMD Package Builder for seajs'.cyan);
-    console.log('欢迎使用 sea-config.js 生成工具，该文件会在配置结束后自动覆盖生成。'.red);
-    console.log('以下操作留空回车表示同意默认配置。'.yellow);
-    log('dir', basedir);
+    log('apb', 'AMD Package Builder for seajs'.cyan);
+    log('welcome', '欢迎使用 sea-config.js 生成工具，该文件会在配置结束后自动覆盖生成。'.red);
+    log('tips', '以下操作留空回车表示同意默认配置。'.yellow);
+    log('write path', basedir, 'danger');
     log('warning', '如果上述目录不正确，请按`ctrl+C`退出后重新指定。', 'warning');
 
     var writeFile = path.join(basedir, './sea-config.js');

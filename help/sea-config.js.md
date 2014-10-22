@@ -9,24 +9,36 @@
 入口模块的起始基准路径。
 在编写项目的路径的时候，强烈建议使用绝对路径。
 
-比如你的项目是这样的：
+比如你的项目是这样的（详见示例）：
 
+```
+- html
+	- index.html
+	- user
+		- index.html
 - static
 	- js
+		- app
+			- index.js
+			- user
+				- index.js
 		- libs
 			- lib.js
-		- app
-			- app.js
 		- sea.js
 		- sea-config.js
-	- css
-- app.html
+- apb.json
+```
 
-app.html 使用了 app.js 作为入口文件，app.js 依赖了 lib.js，页面上的JS可以这么写
-```
-<script src="/static/js/sea.js" id="seajsnode" data-main="app.js"></script>
-<script src="/static/js/sea-config.js"></script>
-```
+- `html/index.html`使用了`index.js`作为入口文件，`index.js`依赖了`lib.js`，页面上的JS可以这么写
+  ```
+  <script src="./static/js/sea.js" id="seajsnode" data-main="index.js"></script>
+  <script src="./static/js/sea-config.js"></script>
+  ```
+- `html/user/index.html`使用了`user/index.js`作为入口文件，`user/index.js`依赖了`lib.js`，页面上的JS可以这么写
+  ```
+  <script src="./static/js/sea.js" id="seajsnode" data-main="user/index.js"></script>
+  <script src="./static/js/sea-config.js"></script>
+  ```
 
 以上注意点：
 * `sea.js`标签的`id`属性必须写，且必须为`seajsnode`。

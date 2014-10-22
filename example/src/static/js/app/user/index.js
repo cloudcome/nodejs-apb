@@ -5,11 +5,13 @@
  */
 
 
-define(function (require, exports, module) {
+define(function (require) {
     /**
      * @module app/user/index
      */
     'use strict';
+
+    require('../../libs/lib.js');
 
     console.log('app/user/index');
 });

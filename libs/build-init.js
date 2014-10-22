@@ -22,9 +22,6 @@ var pkg = require('../package.json');
 // * `copyFiles` 需要原样复制的文件，支持通配符
 module.exports = function (srcPath) {
     var CONFIG;
-//    var seaConfig;
-//    var fn;
-//    var seajs;
 
     try {
         CONFIG = fs.readJSONFileSync(path.join(srcPath, jsonFileName));
@@ -38,6 +35,11 @@ module.exports = function (srcPath) {
         return process.exit(-1);
     }
 
+    if (!CONFIG.base) {
+        log('init', '`' + jsonFileName + '` require `base` param.', 'error');
+        return process.exit(-1);
+    }
+
     if (!CONFIG.dest) {
         log('init', '`' + jsonFileName + '` require `dest` param.', 'error');
         return  process.exit(-1);
@@ -48,23 +50,8 @@ module.exports = function (srcPath) {
         return process.exit(-1);
     }
 
-//    try{
-//        seaConfig = fs.readFileSync(path.join(srcPath, CONFIG['sea-config.js']), 'utf-8');
-//        seaConfig = 'var seajs = {config: function(cnf){return cnf;}};\n' + seaConfig + '\nreturn seajs;';
-//        fn = new Function(seaConfig);
-//        try{
-//            seajs = fn();
-//            seaConfig = seajs.config();
-//            seaConfig.base;
-//        }catch (err){
-//            log('init', 'parse sea-config.js error', 'error');
-//            console.log(err);
-//        }
-//    }catch(err){
-//        log('init', 'read sea-config.js error', 'error');
-//        console.log(err);
-//        return process.exit(-1);
-//    }
+
+
 
     if (!Array.isArray(CONFIG.src)) {
         CONFIG.src = [CONFIG.src];

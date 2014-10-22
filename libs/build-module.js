@@ -116,7 +116,7 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data,
     data = data.replace(regDefine, 'define(\'' +
         (name === the.srcName ?
             // 入口文件
-            path.basename(the.srcName) + '?v=' + CONFIG._private.md5String :
+            path.relative(CONFIG.base, the.srcName) + '?v=' + CONFIG._private.md5String :
             // 依赖文件
             the.requiresIdMap[file]) +
         '\', ' +

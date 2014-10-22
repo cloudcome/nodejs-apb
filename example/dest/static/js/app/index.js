@@ -1,17 +1,1 @@
-/*!
- * index.js
- * @author ydr.me
- * @create 2014-09-25 19:19
- */
-
-
-define(function (require, exports, module) {
-    /**
-     * @module app/index
-     */
-    'use strict';
-
-    require('../libs/lib.js');
-
-    console.log('app/index.js');
-});
+define("index.js?v=9f5219",["1"],function(e){"use strict";e("1");console.log("app/index.js")});define("1",function(){"use strict";console.log("libs/lib.js")});/*apb 1411711556574*/
