@@ -31,19 +31,27 @@ module.exports = function buildConfig(srcPath, destPath, CONFIG, callback) {
             return callback(err);
         }
 
-        data = jsmini(data);
-        data = data.replace(regMain, 'getAttribute("data-main")+"?v=' + CONFIG._private.md5String + '"');
-
-        var destFile = path.join(destPath, CONFIG['sea-config.js']);
-        fs.outputFile(destFile, data, function (err) {
+        data = jsmini(data, function (err, data) {
             if (err) {
-                log('write', 'config file ERROR: ' + err.message, 'error');
+                log('jsmini', file, 'error');
                 process.exit(-1);
                 return callback(err);
             }
 
-            log('write', destFile, 'success');
-            callback();
+            data = data.replace(regMain, 'getAttribute("data-main")+"?v=' + CONFIG._private.md5String + '"');
+
+            var destFile = path.join(destPath, CONFIG['sea-config.js']);
+
+            fs.outputFile(destFile, data, function (err) {
+                if (err) {
+                    log('write', 'config file ERROR: ' + err.message, 'error');
+                    process.exit(-1);
+                    return callback(err);
+                }
+
+                log('write', destFile, 'success');
+                callback();
+            });
         });
     });
 };

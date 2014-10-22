@@ -61,17 +61,20 @@ var compressorOptions = {
 
 
 module.exports = function (data, callback) {
-//    var ast = uglifyJS.parse(data);
-//
-//    ast.figure_out_scope();
-//
-//    var compressor = uglifyJS.Compressor(compressorOptions);
-//
-//    ast = ast.transform(compressor);
-//    ast.figure_out_scope();
-//    ast.compute_char_frequency();
-//    ast.mangle_names();
-//    data = ast.print_to_string();
+    var ast;
+    var compressor;
+
+    try {
+        ast = uglifyJS.parse(data);
+        ast.figure_out_scope();
+        compressor = uglifyJS.Compressor(compressorOptions);
+        ast = ast.transform(compressor);
+        ast.print_to_string();
+        callback(null, data);
+    } catch (err) {
+        callback(err);
+    }
+
 
     // http://blog.csdn.net/larrywangsun/article/details/28093489
 //    data = uglifyJS.minify(data, {
@@ -84,15 +87,15 @@ module.exports = function (data, callback) {
 //    data = jsmin2(data).code;
 
 
-    yuicompressor.compress(data, {
-        //Compressor Options:
-        charset: 'utf8',
-        type: 'js',
-        nomunge: true,
-        'line-break': -1
-    }, function(err, data, extra) {
-        callback(err,  data);
-    });
+//    yuicompressor.compress(data, {
+//        //Compressor Options:
+//        charset: 'utf8',
+//        type: 'js',
+//        nomunge: true,
+//        'line-break': -1
+//    }, function(err, data, extra) {
+//        callback(err,  data);
+//    });
 
 };
 
