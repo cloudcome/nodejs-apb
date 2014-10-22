@@ -7,7 +7,7 @@
 'use strict';
 
 var node = document.getElementById('seajsnode');
-var main = node.getAttribute("data-main")+"?v=adaa7f";
+var main = node.getAttribute('data-main');
 seajs.config({
     base: '/static/js/app/'
 }).use(main);

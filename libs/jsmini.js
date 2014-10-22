@@ -88,7 +88,6 @@ module.exports = function (data, callback) {
 
 
 //    yuicompressor.compress(data, {
-//        //Compressor Options:
 //        charset: 'utf8',
 //        type: 'js',
 //        nomunge: true,
@@ -96,6 +95,5 @@ module.exports = function (data, callback) {
 //    }, function(err, data, extra) {
 //        callback(err,  data);
 //    });
-
 };
 
