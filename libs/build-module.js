@@ -16,7 +16,9 @@ var log = require('./build-log.js');
 var regComment = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg;
 var regRequire = /require\(["'](.*?)["']\)/g;
 var regDefine = /define\s*\(\s*function\s*\(/;
-
+// 该正则取自 seajs
+var REG_REQUIRE = /"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*(["'])(.+?)\1\s*\)/g;
+var REG_SLASH = /\\\\/g;
 
 /**
  * 构建模块
@@ -78,8 +80,6 @@ BuildModule.prototype.output = function (destPath, callback) {
 BuildModule.prototype._parseRequires = function _parseRequires(name, file, data, callback) {
     var the = this;
     var CONFIG = the.CONFIG;
-    // 正则结果
-    var ret;
     // 依赖的列表
     var requires = [];
     // 依赖的绝对路径
@@ -89,20 +89,39 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data,
     var requireIds = [];
     var basePath = path.dirname(file);
 
-    data = data.replace(regComment, '');
+    // 修复BUG
+    // data = data.replace(regComment, '');
+    //
+    // while ((matches = regRequire.exec(data)) !== null) {
+    //     requireFile = path.join(basePath, ret[1]);
+    //
+    //     if (the.requiresIdMap[requireFile]) {
+    //         sourceMap[ret[0]] = the.requiresIdMap[requireFile];
+    //     } else {
+    //         the.requiresIdMap[requireFile] = ++the.requireId;
+    //         sourceMap[ret[0]] = the.requireId;
+    //         requireIds.push(the.requireId);
+    //         requires.push(requireFile);
+    //     }
+    // }
 
-    while ((ret = regRequire.exec(data)) !== null) {
-        requireFile = path.join(basePath, ret[1]);
+    data.replace(REG_SLASH, '').replace(REG_REQUIRE, function (m, m1, m2) {
+        // m require('abc.js');
+        // m1 '
+        // m2 abc.js
+        if (m2) {
+            requireFile = path.join(basePath, m2);
 
-        if (the.requiresIdMap[requireFile]) {
-            sourceMap[ret[0]] = the.requiresIdMap[requireFile];
-        } else {
-            the.requiresIdMap[requireFile] = ++the.requireId;
-            sourceMap[ret[0]] = the.requireId;
-            requireIds.push(the.requireId);
-            requires.push(requireFile);
+            if (the.requiresIdMap[requireFile]) {
+                sourceMap[m] = the.requiresIdMap[requireFile];
+            } else {
+                the.requiresIdMap[requireFile] = ++the.requireId;
+                sourceMap[m] = the.requireId;
+                requireIds.push(the.requireId);
+                requires.push(requireFile);
+            }
         }
-    }
+    });
 
     // 1. 替换 require
     for (var i in sourceMap) {
@@ -116,7 +135,7 @@ BuildModule.prototype._parseRequires = function _parseRequires(name, file, data,
     data = data.replace(regDefine, 'define(\'' +
         (name === the.srcName ?
             // 入口文件
-            path.relative(CONFIG.base, the.srcName) + '?v=' + CONFIG._private.md5String :
+        util.toURLPath(path.relative(CONFIG.base, the.srcName)) + '?v=' + CONFIG._private.md5String :
             // 依赖文件
             the.requiresIdMap[file]) +
         '\', ' +

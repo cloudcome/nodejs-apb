@@ -69,7 +69,10 @@ module.exports = function (data, callback) {
         ast.figure_out_scope();
         compressor = uglifyJS.Compressor(compressorOptions);
         ast = ast.transform(compressor);
-        ast.print_to_string();
+        ast.figure_out_scope();
+        ast.compute_char_frequency();
+        ast.mangle_names();
+        data = ast.print_to_string();
         callback(null, data);
     } catch (err) {
         callback(err);
