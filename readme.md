@@ -42,6 +42,9 @@ npm install -g apb
 
 
 # Version
+## v0.0.14
+* 修复提取依赖的BUG
+
 ## v0.0.13
 * 增加生成`apb.json`
 * 增加生成`sea-config.json`
