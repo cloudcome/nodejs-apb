@@ -7,9 +7,9 @@
 'use strict';
 
 var uglifyJS = require('uglify-js');
-var jsmin = require('jsmin').jsmin;
-var jsmin2 = require('jsmin2');
-var yuicompressor = require('yuicompressor');
+//var jsmin = require('jsmin').jsmin;
+//var jsmin2 = require('jsmin2');
+//var yuicompressor = require('yuicompressor');
 //var parser = uglifyJS.parser;
 //var uglify = uglifyJS.uglify;
 var compressorOptions = {
