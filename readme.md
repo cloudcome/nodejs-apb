@@ -42,7 +42,7 @@ npm install -g apb
 
 
 # Version
-## v0.0.14
+## v0.0.15
 * 修复提取依赖的BUG
 
 ## v0.0.13
