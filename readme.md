@@ -2,6 +2,10 @@
 AMD Package Builder for seajs
 
 
+## 墙裂推荐
+- 模块化加载器 - <https://github.com/cloudcome/coolie>
+- 模块化构建工具 - <https://github.com/cloudcome/nodejs-coolie>
+
 
 ## 安装
 ```
