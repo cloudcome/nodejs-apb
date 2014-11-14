@@ -1,10 +1,9 @@
+## 墙裂推荐，此模块略微有BUG，最新的项目请访问以下链接
+### 模块化加载器 - <https://github.com/cloudcome/coolie>
+### 模块化构建工具 - <https://github.com/cloudcome/nodejs-coolie>
+
 #apb [![NPM version](https://img.shields.io/npm/v/apb.svg?style=flat)](https://npmjs.org/package/apb)
 AMD Package Builder for seajs
-
-
-## 墙裂推荐
-- 模块化加载器 - <https://github.com/cloudcome/coolie>
-- 模块化构建工具 - <https://github.com/cloudcome/nodejs-coolie>
 
 
 ## 安装
